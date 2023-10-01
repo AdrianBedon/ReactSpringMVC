@@ -1,4 +1,4 @@
-package com.arbc.development.mvc.web;
+package com.arbc.development.controller;
 
 import com.arbc.development.mvc.model.Cliente;
 import com.arbc.development.mvc.model.ClienteRepository;
