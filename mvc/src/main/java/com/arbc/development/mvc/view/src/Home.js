@@ -6,10 +6,10 @@ import { Button, Container } from "reactstrap";
 
 const Home = () => {
     return (
-        <div>
+        <div color="dark" className="home-container">
             <AppNavbar/>
             <Container fluid className="d-flex justify-content-center">
-                <Button className="btn btn-outline-info" style={{borderRadius: 5, verticalAlign: "top"}} tag={Link} to="/clients">Manage Client List</Button>
+                <Button className="btn-outline-info" style={{borderRadius: 5, verticalAlign: "top"}} tag={Link} to="/clients">Manage Client List</Button>
             </Container>
         </div>
     );

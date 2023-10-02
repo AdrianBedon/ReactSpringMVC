@@ -40,3 +40,17 @@
 nav + .container, nav + .container-fluid {
   margin-top: 20px;
 }
+
+.home-container {
+  background-image: url("https://images.alphacoders.com/132/1329167.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  /* Adjust styles for smaller screens here */
+  .home-container {
+      background-size: cover;
+  }
+}
