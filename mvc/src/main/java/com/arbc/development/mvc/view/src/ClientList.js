@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Button, ButtonGroup, Container, Table } from "reactstrap";
+import { Button, ButtonGroup, Collapse, Container, Table } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import {Link} from "react-router-dom";
 
@@ -55,17 +55,18 @@ const ClientList = () => {
         <div>
             <AppNavbar/>
             <Container fluid>
-                <div className="float-end">
+                <div className="float-end" responsive>
                     <Button color="success" tag={Link} to="/clients/new">Add Client</Button>
                 </div>
                 <h3>My Client List</h3>
-                <Table className="mt-4">
+                <Table className="mt-4 table-striped" hover style={{borderRadius: 10, overflow: "hidden"}}>
                     <thead>
-                        <tr>
+                        <tr className="table-dark">
                             <th>Username</th>
                             <th width="20%">Name</th>
                             <th width="20%">Lastname</th>
                             <th>Email</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

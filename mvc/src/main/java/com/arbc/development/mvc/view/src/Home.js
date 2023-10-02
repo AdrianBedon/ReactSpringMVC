@@ -8,8 +8,8 @@ const Home = () => {
     return (
         <div>
             <AppNavbar/>
-            <Container fluid>
-                <Button color="link"><Link to="/clients">Manage Client List</Link></Button>
+            <Container fluid className="d-flex justify-content-center">
+                <Button style={{backgroundColor: "black", color: "white", borderRadius: 5, verticalAlign: "top"}} tag={Link} to="/clients">Manage Client List</Button>
             </Container>
         </div>
     );
