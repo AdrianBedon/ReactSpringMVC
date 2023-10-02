@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Button, ButtonGroup, Collapse, Container, Table } from "reactstrap";
+import { Button, ButtonGroup, Collapse, Container, ModalFooter, Table, Modal, ModalBody, ModalHeader } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import {Link} from "react-router-dom";
 
@@ -7,6 +7,8 @@ const ClientList = () => {
 
     const [clients, setClients] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [clientIdToDelete, setClientIdToDelete] = useState(null);
 
     useEffect(() => {
         setLoading(true);
@@ -19,16 +21,22 @@ const ClientList = () => {
             })
     }, []);
 
-    const remove = async (id) => {
-        await fetch(`/api/client/${id}`, {
+    const remove = (id) => {
+        setShowConfirmation(true);
+        setClientIdToDelete(id);
+    }
+
+    const confirmDelete = async () => {
+        await fetch(`/api/client/${clientIdToDelete}`, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/jason'
             }
         }).then(() => {
-            let updatedClients = [...clients].filter(i => i.id !== id);
+            let updatedClients = [...clients].filter(i => i.id !== clientIdToDelete);
             setClients(updatedClients);
+            setShowConfirmation(false);
         });
     }
 
@@ -55,7 +63,7 @@ const ClientList = () => {
         <div>
             <AppNavbar/>
             <Container fluid>
-                <div className="float-end" responsive>
+                <div className="float-end">
                     <Button color="success" tag={Link} to="/clients/new">Add Client</Button>
                 </div>
                 <h3>My Client List</h3>
@@ -63,8 +71,8 @@ const ClientList = () => {
                     <thead>
                         <tr className="table-dark">
                             <th>Username</th>
-                            <th width="20%">Name</th>
-                            <th width="20%">Lastname</th>
+                            <th>Name</th>
+                            <th>Lastname</th>
                             <th>Email</th>
                             <th></th>
                         </tr>
@@ -74,6 +82,17 @@ const ClientList = () => {
                     </tbody>
                 </Table>
             </Container>
+
+            <Modal isOpen={showConfirmation}>
+                <ModalHeader>Confirmation</ModalHeader>
+                <ModalBody>
+                    Are you sure you want to delete this client?
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="danger" onClick={confirmDelete}>Delete</Button>
+                    <Button color="secondary" onClick={() => setShowConfirmation(false)}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
         </div>
     );
 };

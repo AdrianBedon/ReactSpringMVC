@@ -9,7 +9,7 @@ const Home = () => {
         <div>
             <AppNavbar/>
             <Container fluid className="d-flex justify-content-center">
-                <Button style={{backgroundColor: "black", color: "white", borderRadius: 5, verticalAlign: "top"}} tag={Link} to="/clients">Manage Client List</Button>
+                <Button className="btn btn-outline-info" style={{borderRadius: 5, verticalAlign: "top"}} tag={Link} to="/clients">Manage Client List</Button>
             </Container>
         </div>
     );
