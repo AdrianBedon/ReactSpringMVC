@@ -31,7 +31,7 @@ const ClientList = () => {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/jason'
+                'Content-Type': 'application/json'
             }
         }).then(() => {
             let updatedClients = [...clients].filter(i => i.id !== clientIdToDelete);
