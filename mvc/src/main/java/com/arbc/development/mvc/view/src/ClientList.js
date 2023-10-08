@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Button, ButtonGroup, Collapse, Container, ModalFooter, Table, Modal, ModalBody, ModalHeader } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const ClientList = () => {
 
@@ -13,12 +14,11 @@ const ClientList = () => {
     useEffect(() => {
         setLoading(true);
 
-        fetch('api/clients')
-            .then(response => response.json())
-            .then(data => {
-                setClients(data);
+        axios.get('api/clients')
+            .then(response => {
+                setClients(response.data);
                 setLoading(false);
-            })
+            });
     }, []);
 
     const remove = (id) => {
@@ -27,14 +27,9 @@ const ClientList = () => {
     }
 
     const confirmDelete = async () => {
-        await fetch(`/api/client/${clientIdToDelete}`, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(() => {
-            let updatedClients = [...clients].filter(i => i.id !== clientIdToDelete);
+        await axios.delete(`/api/client/${clientIdToDelete}`)
+        .then(() => {
+            let updatedClients = clients.filter(i => i.id !== clientIdToDelete);
             setClients(updatedClients);
             setShowConfirmation(false);
         });

@@ -46,6 +46,17 @@ nav + .container, nav + .container-fluid {
   background-size: cover;
   background-position: center;
   height: 100vh;
+  background-blend-mode: soft-light;
+  isolation: isolate;
+}
+
+.home-container::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: whitesmoke;
+  opacity: 0.2;
 }
 
 @media (max-width: 768px) {
@@ -53,4 +64,8 @@ nav + .container, nav + .container-fluid {
   .home-container {
       background-size: cover;
   }
+}
+
+.welcome-message {
+  text-align: center;
 }
