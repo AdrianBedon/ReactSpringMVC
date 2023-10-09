@@ -3,6 +3,7 @@ import { Button, ButtonGroup, Collapse, Container, ModalFooter, Table, Modal, Mo
 import AppNavbar from "./AppNavbar";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import { request } from "./helper/axios_helper";
 
 const ClientList = () => {
 
@@ -14,7 +15,10 @@ const ClientList = () => {
     useEffect(() => {
         setLoading(true);
 
-        axios.get('api/clients')
+        request(
+            'GET',
+            'api/clients',
+            {   })
             .then(response => {
                 setClients(response.data);
                 setLoading(false);
@@ -27,7 +31,10 @@ const ClientList = () => {
     }
 
     const confirmDelete = async () => {
-        await axios.delete(`/api/client/${clientIdToDelete}`)
+        await request(
+            'DELETE',
+            `/api/client/${clientIdToDelete}`,
+            {})
         .then(() => {
             let updatedClients = clients.filter(i => i.id !== clientIdToDelete);
             setClients(updatedClients);

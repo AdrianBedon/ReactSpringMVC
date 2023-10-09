@@ -27,8 +27,8 @@ class ClienteController {
     }
 
     @GetMapping("/clients")
-    Collection<Cliente> clientes() {
-        return clienteRepository.findAll();
+    public ResponseEntity<Collection<Cliente>> clientes() {
+        return ResponseEntity.ok().body(clienteRepository.findAll());
     }
 
     @GetMapping("/client/{id}")

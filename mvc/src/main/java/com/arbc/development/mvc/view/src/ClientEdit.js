@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import AppNavbar from "./AppNavbar";
+import { request } from "./helper/axios_helper";
 
 const ClientEdit = () => {
     const initialFormState = {
@@ -16,9 +17,13 @@ const ClientEdit = () => {
 
     useEffect(() => {
         if (id !== 'new') {
-            fetch(`/api/client/${id}`)
-                .then(response => response.json())
-                .then(data => setClient(data));
+            request(
+                'GET',
+                `/api/client/${id}`,
+                {})
+                .then(response => {
+                    setClient(response.data);
+                });
         }
     }, [id, setClient]);
 
@@ -30,14 +35,10 @@ const ClientEdit = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        await fetch(`/api/client${client.id ? `/${client.id}` : ''}`, {
-            method: (client.id) ? 'PUT' : 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(client)
-        });
+        await request(
+            (client.id) ? 'PUT' : 'POST',
+            `/api/client${client.id ? `/${client.id}` : ''}`,
+            JSON.stringify(client));
         setClient(initialFormState);
         navigate('/clients');
     }
