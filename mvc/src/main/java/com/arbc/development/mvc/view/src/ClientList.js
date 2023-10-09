@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
-import { Button, ButtonGroup, Collapse, Container, ModalFooter, Table, Modal, ModalBody, ModalHeader } from "reactstrap";
+import { Button, ButtonGroup, Container, ModalFooter, Table, Modal, ModalBody, ModalHeader } from "reactstrap";
 import AppNavbar from "./AppNavbar";
 import {Link} from "react-router-dom";
-import axios from "axios";
 import { request } from "./helper/axios_helper";
 
 const ClientList = () => {
@@ -69,7 +68,7 @@ const ClientList = () => {
                     <Button color="success" tag={Link} to="/clients/new">Add Client</Button>
                 </div>
                 <h3>My Client List</h3>
-                <Table className="mt-4 table-striped" hover style={{borderRadius: 10, overflow: "hidden"}}>
+                <Table className="mt-4 table-striped" hover responsive style={{borderRadius: 10, overflow: "hidden"}}>
                     <thead>
                         <tr className="table-dark">
                             <th>Username</th>

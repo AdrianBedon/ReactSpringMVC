@@ -3,16 +3,14 @@ import './App.css';
 import AppNavbar from "./AppNavbar";
 import LoginForm from "./LoginForm";
 import WelcomeContent from "./WelcomeContent";
-import { setAuthHeader, request } from "./helper/axios_helper";
-import Buttons from './Buttons';
-import { Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { setAuthHeader, request, getAuthToken } from "./helper/axios_helper";
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
+        const authToken = getAuthToken();
         this.state = {
-            componentToShow: "welcome"
+            componentToShow: authToken != null && authToken != "null" ? "welcome" : "login"
         };
     }
 
@@ -21,7 +19,7 @@ class Home extends React.Component {
     };
 
     logout = () => {
-        this.setState({componentToShow: "welcome"})
+        this.setState({componentToShow: "login"})
         setAuthHeader(null);
     };
 
@@ -36,11 +34,11 @@ class Home extends React.Component {
             }).then(
             (response) => {
                 setAuthHeader(response.data.token);
-                this.setState({ componentToShow: "mvc" });
+                this.setState({ componentToShow: "welcome" });
             }).catch(
             (error) => {
                 setAuthHeader(null);
-                this.setState({ componentToShow: "welcome" });
+                this.setState({ componentToShow: "login" });
             }
         );
     };
@@ -58,11 +56,11 @@ class Home extends React.Component {
             }).then(
             (response) => {
                 setAuthHeader(response.data.token);
-                this.setState({ componentToShow: "mvc" });
+                this.setState({ componentToShow: "welcome" });
             }).catch(
             (error) => {
                 setAuthHeader(null);
-                this.setState({ componentToShow: "welcome" });
+                this.setState({ componentToShow: "login" });
             }
         );
     };
@@ -71,13 +69,8 @@ class Home extends React.Component {
         return (
             <div color="dark" className="home-container">
                 <AppNavbar />
-                <Buttons
-                    login={this.login}
-                    logout={this.logout}
-                    />
-                {this.state.componentToShow === "welcome" && <WelcomeContent />}
+                {this.state.componentToShow === "welcome" && <WelcomeContent logout={this.logout}/>}
                 {this.state.componentToShow === "login" && <LoginForm onLogin={this.onLogin} onRegister={this.onRegister} />}
-                {this.state.componentToShow === "mvc" && <Button className="btn-outline-info" style={{ borderRadius: 5, verticalAlign: "top" }} tag={Link} to="/clients">Manage Client List</Button>}
             </div>
         );
     };
