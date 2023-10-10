@@ -4,7 +4,7 @@ import { getAuthToken } from "./axios_helper";
 
 const withAuth = (WrappedComponent) => {
     const AuthRoute = (props) => {
-        if (!getAuthToken() || getAuthToken() == null || getAuthToken() == "null") {
+        if (!getAuthToken() || getAuthToken() === null || getAuthToken() === "null") {
             return <Navigate to="/" />;
         }
 

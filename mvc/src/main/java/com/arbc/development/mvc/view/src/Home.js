@@ -10,7 +10,7 @@ class Home extends React.Component {
         super(props);
         const authToken = getAuthToken();
         this.state = {
-            componentToShow: authToken != null && authToken != "null" ? "welcome" : "login"
+            componentToShow: authToken !== null && authToken !== "null" ? "welcome" : "login"
         };
     }
 

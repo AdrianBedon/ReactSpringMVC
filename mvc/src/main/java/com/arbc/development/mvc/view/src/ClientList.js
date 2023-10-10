@@ -68,6 +68,7 @@ const ClientList = () => {
                     <Button color="success" tag={Link} to="/clients/new">Add Client</Button>
                 </div>
                 <h3>My Client List</h3>
+                <p/>
                 <Table className="mt-4 table-striped" hover responsive style={{borderRadius: 10, overflow: "hidden"}}>
                     <thead>
                         <tr className="table-dark">
